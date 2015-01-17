@@ -1,5 +1,5 @@
 {
-  "name": "griddleWithCallback-react",
+  "name": "griddle-callback",
   "version": "0.0.1",
   "description": "A Griddle wrapper for obtaining external data with a callback.",
   "main": "modules/griddleWithCallback.jsx.js",
@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "griddle",
-    "griddleWithCallback"
+    "griddleWithCallback",
     "grid",
     "react-grid",
     "react-component"
