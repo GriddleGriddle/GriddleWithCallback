@@ -1,6 +1,6 @@
 var React = require('react');
-var Griddle = require('griddle-react');
 var _ = require('underscore');
+var Griddle = require('griddle-react');
 
 var GriddleWithCallback = React.createClass({
 	getDefaultProps: function(){
