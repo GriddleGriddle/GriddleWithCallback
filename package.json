@@ -1,6 +1,6 @@
 {
   "name": "griddle-callback",
-  "version": "0.0.1",
+  "version": "0.2.0-beta2",
   "description": "A Griddle wrapper for obtaining external data with a callback.",
   "main": "modules/griddleWithCallback.jsx.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "react": "~0.12.0",
     "react-tools": "~0.12.0",
     "underscore": "~1.6.0",
-    "griddle-react": "0.2.0-beta1"
+    "griddle-react": "0.2.0-beta2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
