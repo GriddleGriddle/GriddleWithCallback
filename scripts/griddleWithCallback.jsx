@@ -7,7 +7,8 @@ var GriddleWithCallback = React.createClass({
 		return {
 			getExternalResults: null,
 			resultsPerPage: 5,
-			loadingComponent: null
+			loadingComponent: null,
+			enableInfiniteScroll: false
 		}
 	},
     getInitialState: function(){
@@ -111,7 +112,7 @@ var GriddleWithCallback = React.createClass({
 		// Grab the results.
 		this.getExternalResults(state, function(externalResults) {
 			// Fill the state result properties
-			if (that.props.infiniteScroll && that.state.results) {
+			if (that.props.enableInfiniteScroll && that.state.results) {
 				state.results = that.state.results.concat(externalResults.results);
 			} else {
 				state.results = externalResults.results;
