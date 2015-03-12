@@ -23,7 +23,7 @@
             results: data.results,
             totalResults: data.count,
             pageSize: pageSize
-          }); 
+          });
         });
       };
 
@@ -38,6 +38,6 @@
         }
       });
 
-      React.render(<GriddleWithCallback getExternalResults={loadData} loadingComponent={Loading} enableSort={false} columns={["name", "model", "manufacturer", "passengers"]} resultsPerPage={10} showFilter={false} showSettings={false} />, document.getElementById('griddle-callback')); 
+      React.render(<GriddleWithCallback getExternalResults={loadData} loadingComponent={Loading} enableSort={true} enableInfiniteScroll={true} bodyHeight={200} columns={["name", "model", "manufacturer", "passengers"]} resultsPerPage={10} showFilter={false} showSettings={false} />, document.getElementById('griddle-callback')); 
     </script>
 </body>

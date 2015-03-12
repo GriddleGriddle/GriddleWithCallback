@@ -11,35 +11,35 @@ var GriddleWithCallback = React.createClass({
 			enableInfiniteScroll: false
 		}
 	},
-    getInitialState: function(){
-      var initial = { "results": [],
-          "page": 0,
-          "maxPage": 0,
-          "sortColumn":null,
-          "sortAscending":true
-      };
+  getInitialState: function(){
+    var initial = { "results": [],
+        "page": 0,
+        "maxPage": 0,
+        "sortColumn":null,
+        "sortAscending":true
+    };
 
 	  // If we need to get external results, grab the results.
 	  initial.isLoading = true; // Initialize to 'loading'
 
-      return initial;
-    },
-    componentDidMount: function(){
-			var state = this.state;
-			state.pageSize = this.props.resultsPerPage;
+    return initial;
+  },
+  componentDidMount: function(){
+		var state = this.state;
+		state.pageSize = this.props.resultsPerPage;
 
-			var that = this;
+		var that = this;
 
-			if (!this.hasExternalResults()) {
-				console.error("When using GriddleWithCallback, a getExternalResults callback must be supplied.");
-				return;
-			}
+		if (!this.hasExternalResults()) {
+			console.error("When using GriddleWithCallback, a getExternalResults callback must be supplied.");
+			return;
+		}
 
-			// Update the state with external results when mounting
-			state = this.updateStateWithExternalResults(state, function(updatedState) {
-				that.setState(updatedState);
-			});
-    },
+		// Update the state with external results when mounting
+		state = this.updateStateWithExternalResults(state, function(updatedState) {
+			that.setState(updatedState);
+		});
+  },
 	componentWillReceiveProps: function(nextProps) {
 		var state = this.state,
 		that = this;
@@ -49,7 +49,7 @@ var GriddleWithCallback = React.createClass({
 			that.setState(updatedState);
 		});
 	},
-    setPage: function(index, pageSize){
+  setPage: function(index, pageSize){
         //This should interact with the data source to get the page at the given index
 		var that = this;
 		var state = {
@@ -60,7 +60,7 @@ var GriddleWithCallback = React.createClass({
 		this.updateStateWithExternalResults(state, function(updatedState) {
 			that.setState(updatedState);
 		});
-    },
+  },
 	getExternalResults: function(state, callback) {
 		var filter,
 		sortColumn,
@@ -112,7 +112,9 @@ var GriddleWithCallback = React.createClass({
 		// Grab the results.
 		this.getExternalResults(state, function(externalResults) {
 			// Fill the state result properties
-			if (that.props.enableInfiniteScroll && that.state.results) {
+			if (that.props.enableInfiniteScroll &&
+					that.state.results &&
+					state.page > that.state.page) {
 				state.results = that.state.results.concat(externalResults.results);
 			} else {
 				state.results = externalResults.results;
@@ -131,17 +133,17 @@ var GriddleWithCallback = React.createClass({
 		});
 	},
 	getMaxPage: function(pageSize, totalResults){
-			if (!totalResults) {
-				totalResults = this.state.totalResults;
-			}
+		if (!totalResults) {
+			totalResults = this.state.totalResults;
+		}
 
-			var maxPage = Math.ceil(totalResults / pageSize);
-			return maxPage;
+		var maxPage = Math.ceil(totalResults / pageSize);
+		return maxPage;
 	},
 	hasExternalResults: function() {
 		return typeof(this.props.getExternalResults) === 'function';
 	},
-    changeSort: function(sort, sortAscending){
+	changeSort: function(sort, sortAscending){
     	var that = this;
       //this should change the sort for the given column
 		var state = {
@@ -153,42 +155,42 @@ var GriddleWithCallback = React.createClass({
 		this.updateStateWithExternalResults(state, function(updatedState) {
 			that.setState(updatedState);
 		});
-    },
-    setFilter: function(filter){
-      /*
-        like everything else -- this is pretend code used to simulate something that we would do on the
-        server-side (aka we would generally post the filter as well as other information used to populate
-        the grid) and send back to the view (which would handle passing the data back to Griddle)
-      */
-			var that = this;
+  },
+  setFilter: function(filter){
+    /*
+      like everything else -- this is pretend code used to simulate something that we would do on the
+      server-side (aka we would generally post the filter as well as other information used to populate
+      the grid) and send back to the view (which would handle passing the data back to Griddle)
+    */
+		var that = this;
 
-			var state = {
-				page: 0,
-				filter: filter
+		var state = {
+			page: 0,
+			filter: filter
+		}
+
+		this.updateStateWithExternalResults(state, function(updatedState) {
+			//if filter is null or undefined reset the filter.
+			if (_.isUndefined(filter) || _.isNull(filter) || _.isEmpty(filter)){
+				updatedState.filter = filter;
+				updatedState.filteredResults = null;
 			}
 
-			this.updateStateWithExternalResults(state, function(updatedState) {
-				//if filter is null or undefined reset the filter.
-				if (_.isUndefined(filter) || _.isNull(filter) || _.isEmpty(filter)){
-					updatedState.filter = filter;
-					updatedState.filteredResults = null;
-				}
-
-				// Set the state.
-				that.setState(updatedState);
-			});
-    },
-    setPageSize: function(size){
-			this.setPage(0, size);
-    },
-    render: function(){
-			return <Griddle {...this.props} useExternal={true} externalSetPage={this.setPage}
-				externalChangeSort={this.changeSort} externalSetFilter={this.setFilter}
-				externalSetPageSize={this.setPageSize} externalMaxPage={this.state.maxPage}
-				externalCurrentPage={this.state.page} results={this.state.results} tableClassName="table" resultsPerPage={this.state.pageSize}
-				externalSortColumn={this.state.sortColumn} externalSortAscending={this.state.sortAscending}
-				externalLoadingComponent={this.props.loadingComponent} externalIsLoading={this.state.isLoading} />
-	  }
+			// Set the state.
+			that.setState(updatedState);
+		});
+  },
+  setPageSize: function(size){
+		this.setPage(0, size);
+  },
+  render: function(){
+		return <Griddle {...this.props} useExternal={true} externalSetPage={this.setPage}
+			externalChangeSort={this.changeSort} externalSetFilter={this.setFilter}
+			externalSetPageSize={this.setPageSize} externalMaxPage={this.state.maxPage}
+			externalCurrentPage={this.state.page} results={this.state.results} tableClassName="table" resultsPerPage={this.state.pageSize}
+			externalSortColumn={this.state.sortColumn} externalSortAscending={this.state.sortAscending}
+			externalLoadingComponent={this.props.loadingComponent} externalIsLoading={this.state.isLoading} />
+  }
 });
 
 module.exports = GriddleWithCallback;
