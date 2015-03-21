@@ -1,6 +1,6 @@
 {
   "name": "griddle-callback",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Griddle wrapper for obtaining external data with a callback.",
   "main": "modules/griddleWithCallback.jsx.js",
   "scripts": {
