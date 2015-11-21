@@ -56,7 +56,7 @@ module.exports = function(grunt) {
         },
         module: {
           loaders: [
-            {test: /\.jsx$/, loader: 'jsx'}
+            {test: /\.jsx$/, loader: 'babel'}
           ]
         },
         externals: {
