@@ -5,7 +5,8 @@
 </head>
 <body>
   <div id="griddle-callback"></div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.1/JSXTransformer.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
     <script src="build/GriddleWithCallback.js"></script>
@@ -38,6 +39,6 @@
         }
       });
 
-      React.render(<GriddleWithCallback getExternalResults={loadData} loadingComponent={Loading} enableSort={true} enableInfiniteScroll={true} bodyHeight={200} columns={["name", "model", "manufacturer", "passengers"]} resultsPerPage={10} showFilter={false} showSettings={false} />, document.getElementById('griddle-callback')); 
+      ReactDOM.render(<GriddleWithCallback getExternalResults={loadData} loadingComponent={Loading} enableSort={true} enableInfiniteScroll={true} bodyHeight={200} columns={["name", "model", "manufacturer", "passengers"]} resultsPerPage={10} showFilter={false} showSettings={false} />, document.getElementById('griddle-callback'));
     </script>
 </body>
